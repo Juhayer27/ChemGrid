@@ -70,10 +70,14 @@ gap:10px;flex-wrap:wrap;margin:22px 0 11px}
 .periodic{display:grid;grid-template-columns:repeat(18,minmax(49px,1fr));
 gap:4px;min-width:950px}
 .element{min-width:0;min-height:68px;padding:5px 4px;text-align:left;
-background:var(--panel);color:var(--text);border:1px solid var(--line);
-border-top:3px solid var(--c);border-radius:8px;position:relative}
-.element:hover{border-color:var(--accent);transform:translateY(-2px)}
-.element .num,.element .mass,.element .name{display:block;color:var(--muted)}
+background:var(--tile,var(--panel));color:var(--text);
+border:1px solid color-mix(in srgb,var(--c) 48%,#303b33);
+border-top:3px solid var(--c);border-radius:8px;position:relative;
+transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.element:hover{border-color:var(--c);
+box-shadow:0 0 12px color-mix(in srgb,var(--c) 28%,transparent);
+transform:translateY(-2px)}
+.element .num,.element .mass,.element .name{display:block;color:#E2E8E4}
 .element .num{font-size:9px}
 .element .sym{display:block;font-size:19px;font-weight:850;color:var(--c);
 line-height:1.3}
@@ -90,12 +94,25 @@ background:#172019}
 .series{display:grid;grid-template-columns:repeat(15,minmax(49px,1fr));
 gap:4px;min-width:790px}
 .table-note{color:var(--muted);font-size:11px;line-height:1.7}
-.alkali{--c:#ff9b85}.alkaline{--c:#ffc36b}
-.transition{--c:#ffe27a}.post-transition{--c:#9ee6a7}
-.metalloid{--c:#65e4c3}.nonmetal{--c:#76c7ff}
-.halogen{--c:#9ba8ff}.noble{--c:#d3a4ff}
-.lanthanoid{--c:#ff9ed0}.actinoid{--c:#ff8eb5}
-.unknown{--c:#aab6c8}
+
+/* Vibrant, colour-coded periodic table */
+.alkali{--c:#FF6B6B;--tile:#3A2025}
+.alkaline{--c:#FFAD42;--tile:#392B1C}
+.transition{--c:#FFE066;--tile:#39341C}
+.post-transition{--c:#A3E635;--tile:#29351D}
+.metalloid{--c:#2DD4BF;--tile:#193834}
+.nonmetal{--c:#38BDF8;--tile:#193443}
+.halogen{--c:#818CF8;--tile:#252747}
+.noble{--c:#C084FC;--tile:#352344}
+.lanthanoid{--c:#F472B6;--tile:#3B2032}
+.actinoid{--c:#FB7185;--tile:#3D2029}
+.unknown{--c:#CBD5E1;--tile:#2A3039}
+
+/* Colourful element tiles */
+.big-symbol{background:var(--tile,var(--panel));border-color:var(--c)}
+.big-symbol strong{color:var(--c)}
+.dot{background:var(--c)}
+
 .explore{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:25px}
 .card{padding:19px;background:var(--panel);border:1px solid var(--line);
 border-radius:15px;min-width:0}
@@ -534,7 +551,7 @@ function renderLegend(){
   Object.entries(CATEGORIES).forEach(([key,name])=>{
     const item=document.createElement("span");
     item.className="legend-item";
-    item.innerHTML=`<span class="dot ${key}" style="--c:var(--c)"></span>${escapeHTML(name)}`;
+    item.innerHTML=`<span class="dot ${key}"></span>${escapeHTML(name)}`;
     $("legend").append(item);
   });
 }
@@ -847,4 +864,4 @@ showFact();
 $("quizQuestion").textContent="Ready for a five-question chemistry challenge?";
 </script>
 </body>
-      </html>
+</html>
